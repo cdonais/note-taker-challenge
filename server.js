@@ -4,8 +4,10 @@ const fs=require('fs');
 const app=express();
 const PORT=process.env.PORT || 3001;
 const{v4:uuidv4}=require('uuid');
-app.use(express.static('public'));
 
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.get('/',(req,res)=>{
@@ -18,28 +20,35 @@ app.get('/notes',(req,res)=>{
     res.sendFile(path.join(__dirname,'./public/notes.html'))
 })
 //create get route for notes api
-app.get('api/notes',(req,res)=>{
+app.get('/api/notes',(req,res)=>{
     fs.readFile('./db/db.json',(err,data)=>{
         if (err) {
             console.log(err)
         } else {
-            res.json(JSON.parse(data))
+            if(data){
+                res.json(JSON.parse(data))
+            } else {
+                res.json([])
+            }
+            
         }
     })
 })
 //route to post note
 
 app.post('/api/notes',(req,res)=>{
-    fs.readFile(__dirname+'./db/db.json',(err,notes)=>{
+    const newNote=req.body
+    console.log(req.body)
+    fs.readFile('./db/db.json',(err,data)=>{
         if(err){
             console.log(err)
         } else {
+            
             let notes=JSON.parse(data) || []
             let newId=uuidv4();
-            const newNote=req.body
             console.log(newNote)
             notes.push({...newNote,id:newId})
-            fs.writeFile('./db/db.json',JSON.stringify(notes),(err)=>{
+            fs.writeFile('./db/db.json', JSON.stringify(notes),(err)=>{
                 if (err) {
                     console.log(err)
                 } else {
@@ -57,10 +66,15 @@ app.delete('/api/notes/:id',(req,res)=>{
         } else {
             let notes=JSON.parse(data) || []
             const id=req.params.id
-            let deletedNote=notes.filter(note=>{
-                note.id !== id
-            })
-            fs.writeFile('./db/db.json', JSON.stringify(deletedNote),(err)=>{
+            const index=notes.map(note=>note.id).indexOf(id)
+
+          
+            // let deletedNote=notes.filter(note=>{
+            //     note.id != id
+            // })
+            notes.splice(index,1)
+            console.log(notes);
+            fs.writeFile('./db/db.json', JSON.stringify(notes),(err)=>{
                 if (err) {
                     console.log(err)
                 } else {
