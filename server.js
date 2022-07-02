@@ -34,11 +34,11 @@ app.post('/api/notes',(req,res)=>{
         if(err){
             console.log(err)
         } else {
-            let notes=JSON.parse(data)
+            let notes=JSON.parse(data) || []
             let newId=uuidv4();
-            req.body.id=newId;
             const newNote=req.body
-            notes.push(newNote)
+            console.log(newNote)
+            notes.push({...newNote,id:newId})
             fs.writeFile('./db/db.json',JSON.stringify(notes),(err)=>{
                 if (err) {
                     console.log(err)
@@ -55,7 +55,7 @@ app.delete('/api/notes/:id',(req,res)=>{
         if (err) {
             console.log(err)
         } else {
-            let notes=JSON.parse(data)
+            let notes=JSON.parse(data) || []
             const id=req.params.id
             let deletedNote=notes.filter(note=>{
                 note.id !== id
