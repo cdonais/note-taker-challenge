@@ -1,5 +1,5 @@
 # Note-Taker-Challenge
-
+[Video-Walkthrough](https://drive.google.com/file/d/1D1X2MlK-0YsEEyxVsXTjwneJdlI2MaRU/view)
 ## Purpose
 A note taker application that allows a user to create a list of notes, each with a title and text content, that can be saved by pushing the save icon and deleted using the trash icon.
 
@@ -18,6 +18,10 @@ To use this application, install the necessary NPMs by using the "npm i" command
 Please see deployed page on [Heroku](https://infinite-mountain-99008.herokuapp.com/notes)
 
 ## Screenshots
+![Home page](/images/screenshot1.png);
+![Adding a new note](/images/screenshot2.png);
+![After new note is deleted](/images/screenshot4.png);
+![After note is deleted](/images/screenshot3.png);
 
 ## Questions?
 
