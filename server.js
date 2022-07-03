@@ -38,7 +38,6 @@ app.get('/api/notes',(req,res)=>{
 
 app.post('/api/notes',(req,res)=>{
     const newNote=req.body
-    console.log(req.body)
     fs.readFile('./db/db.json',(err,data)=>{
         if(err){
             console.log(err)
@@ -46,7 +45,6 @@ app.post('/api/notes',(req,res)=>{
             
             let notes=JSON.parse(data) || []
             let noteId=uuidv4();
-            console.log(newNote)
             notes.push({...newNote,id:noteId})
             fs.writeFile('./db/db.json', JSON.stringify(notes),(err)=>{
                 if (err) {
