@@ -15,7 +15,7 @@ To use this application, install the necessary NPMs by using the "npm i" command
 
 ## Deployed Page
 
-Please see deployed page on [Heroku](https://infinite-mountain-99008.herokuapp.com/notes)
+Please see deployed page on [Heroku](https://infinite-mountain-99008.herokuapp.com/)
 
 ## Screenshots
 ![Home page](/images/screenshot1.png);
